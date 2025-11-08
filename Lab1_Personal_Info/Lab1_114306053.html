@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About -- 114306053</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 600px;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            vertical-align: middle;
+        }
+        th {
+            text-align: center;
+        }
+        img {
+            display: block;
+            margin: 5px auto;
+        }
+        input[type="text"], input[type="email"], select, input[type="date"] {
+            display: inline-block;
+            width: auto;
+        }
+        input[type="date"]::before {
+            content: attr(data-placeholder);
+            color: gray;
+            margin-right: 5px;
+        }
+        input[type="date"]:focus::before,
+        input[type="date"]:valid::before {
+            content: "";
+        }
+        textarea {
+            resize: none;
+            width: 95%;
+        }
+        form {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <form action="http://www.detail.com" method="post">
+        <table>
+            <tr>
+                <th colspan="3"><strong>About -- 114306053</strong></th>
+            </tr>
+            <tr>
+                <td rowspan="3" align="center">
+                    <img src="osfbuGg2bAE5bcDSAn9lZyCjNDACeAA8qzAIZF~tplv-dy-aweme-images_q75.webp" width="150" height="120" alt="personal photo"><br>
+                    personal photo
+                </td>
+                <td colspan="2">
+                    Name:
+                    <input type="text" name="name" size="25" maxlength="30">
+                    &nbsp;&nbsp;
+                </br>
+                    Gender:
+                    <input type="radio" name="gender" value="male"> Male
+                    <input type="radio" name="gender" value="female"> Female
+                    <input type="radio" name="gender" value="other"> Other
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    County:
+                    <select name="county">
+                        <option value="taipei">Taipei</option>
+                        <option value="tainan">Tainan</option>
+                        <option value="taichung">Taichung</option>
+                        <option value="taoyuan">Taoyuan</option>
+                    </select>
+                </td>
+                <td>
+                    Birthday:
+                    <input type="date" name="birthday" data-placeholder="年 / 月 / 日" min="1900-01-01" max="2025-11-08">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    E-mail:
+                    <input type="email" name="email" size="30" maxlength="40" placeholder="example@email.com">
+                </td>
+            </tr>
+            <tr>
+                <td>Hobby</td>
+                <td colspan="2">
+                    <input type="checkbox" name="hobby" value="swimming"> Swimming
+                    <input type="checkbox" name="hobby" value="volleyball"> Volleyball
+                    <input type="checkbox" name="hobby" value="movie"> Movie
+                    <input type="checkbox" name="hobby" value="game"> Game
+                    <input type="checkbox" name="hobby" value="sleep"> Sleep
+                </td>
+            </tr>
+            <tr>
+                <td>Skill</td>
+                <td colspan="2">
+                    <input type="checkbox" name="skill" value="java"> Java
+                    <input type="checkbox" name="skill" value="html"> HTML
+                    <input type="checkbox" name="skill" value="python"> Python
+                    <input type="checkbox" name="skill" value="microsoft-office"> Microsoft Office
+                    <input type="checkbox" name="skill" value="premiere"> Premiere
+                </td>
+            </tr>
+            <tr>
+                <td>Say Something</td>
+                <td colspan="2">
+                    <textarea name="message" rows="2" placeholder="Say something here."></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" align="center">
+                    <input type="submit" value="提交">
+                    <input type="reset" value="重設">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
