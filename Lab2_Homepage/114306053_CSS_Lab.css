@@ -1,0 +1,123 @@
+body {
+    margin: 0;
+    padding: 0;
+    color: #333333;
+    background-color: #ffffff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+/* 9：heading element (h1) 的 font-family */
+h1 {
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 3em;
+    margin: 0;
+}
+
+.hero {
+    background-color: #3498db;
+    color: #ffffff;
+    text-align: center;
+    padding: 2.5em 1em 4.5em;
+}
+
+.subtitle {
+    margin-top: 2.2em;
+    font-size: 1.4em;
+}
+
+.hidden-text {
+    display: none;
+}
+
+ul.navbar {
+    list-style: none;
+    margin: 0;
+    padding: 0.4em 0;
+
+    background-color: #243140;
+    display: flex;
+    justify-content: center;
+    gap: 4em;
+
+    position: relative;
+    top: 0em;
+    left: 0em;
+    width: 100%;  
+}
+
+ul.navbar li a {
+    display: block;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+}
+ul.navbar li.dropdown > a {
+    color: #5dade2;
+}
+
+ul.navbar li {
+    position: relative;
+}
+
+.dropdown-menu {
+    list-style: none;
+    margin: 0;
+    padding: 1em 1.5em;
+
+    position: absolute;
+    top: 2.2em;
+    left: 0;
+
+    background-color: #243140;
+    min-width: 14em;
+
+    display: none;
+    border-radius: 0 0 0.7em 0.7em;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-menu li {
+    margin-bottom: 0.7em;
+}
+
+.dropdown-menu li:last-child {
+    margin-bottom: 0;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.content {
+    margin-top: 0.5em;
+    padding: 2em;
+    font-size: 1.05em;
+}
+
+.content a {
+    font-weight: bold;
+}
+@media all {
+    body {
+        line-height: 1.5;
+    }
+}
+
+/* 13：@media print */
+@media print {
+    .hero,
+    .navbar,
+    .dropdown-menu {
+        display: none;
+    }
+
+    body {
+        background-color: #ffffff;
+        color: #000000;
+        font-size: 12pt;
+    }
+
+    .content {
+        margin-top: 0;
+    }
+}
