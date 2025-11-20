@@ -1,0 +1,248 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #eeede1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* --- Main container --- */
+.main-container {
+  width: 1000px;
+  background-color: #fdfdfd;
+  display: flex;              /* left + right panels */
+  border-radius: 12px;        /* rounded corners */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* --- Left panel --- */
+.left-panel {
+  width: 30%;
+  background-color: #4d81c7;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.left-title {
+  font-size: 16px;
+  margin: 12px 0 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #ffffff;   /* 白色底線 */
+}
+
+/* photo */
+.photo-panel img {
+  width: 100%;
+  display: block;
+}
+
+/* text in left panel */
+.text-content {
+  padding: 16px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.subtitle {
+  margin: 4px 0 16px;
+  font-size: 14px;
+}
+
+.left-title {
+  font-size: 16px;
+  margin: 12px 0 4px;
+}
+
+.about-me {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.contact-list {
+  list-style: none;
+  padding-left: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.contact-list a {
+  color: #ffe5a6;
+  text-decoration: none;
+}
+
+.contact-list a:hover {
+  text-decoration: underline;
+}
+
+/* NCCU logo at bottom */
+.school-logo {
+  margin-top: auto;    /* push to bottom */
+  text-align: center;
+  padding-top: 16px;
+}
+
+.school-logo img {
+  max-width: 80%;
+  height: auto;
+}
+
+/* --- Right panel --- */
+.right-panel {
+  width: 70%;
+  padding: 20px 28px 24px;
+  background-color: #ffffff;
+}
+
+/* generic section */
+.section {
+  margin-bottom: 22px;
+}
+
+/* section titles */
+.section-title {
+  font-size: 18px;
+  margin: 0 0 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #444;
+}
+
+/* --- Education --- */
+.edu-item {
+  display: flex;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.year {
+  width: 120px;
+  font-weight: bold;
+}
+
+.description {
+  flex: 1;
+}
+
+/* --- Skill tags --- */
+.tags {
+  margin-top: 8px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  margin: 4px 6px 0 0;
+  border-radius: 999px;     /* pill shape */
+  background-color: #e5f0ff;
+  color: #35507a;
+  font-size: 13px;
+}
+
+/* --- Homework & Lab --- */
+.hw-lab-container {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.hw-column,
+.lab-column {
+  flex: 1;
+  background-color: #f4f6fb;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.hw-column h3,
+.lab-column h3 {
+  margin-top: 0;
+  font-size: 15px;
+}
+
+.hw-column ul,
+.lab-column ul {
+  margin: 0;
+  padding-left: 18px;
+  list-style: disc;
+}
+
+/* links style */
+.hw-column a,
+.lab-column a {
+  text-decoration: none;   /* no underline by default */
+  color: #1f5790;
+}
+
+.hw-column a:hover,
+.lab-column a:hover {
+  text-decoration: underline;
+}
+
+/* --- Favorite Music --- */
+.music-row {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.music-item {
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+  flex: 1;
+}
+
+.music-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 6px;
+}
+
+.song-title {
+  font-size: 13px;
+}
+
+.music-item:hover .song-title {
+  text-decoration: underline;
+}
+
+.music-note {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* --- Small screen fallback (optional) --- */
+@media (max-width: 900px) {
+  .main-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .left-panel,
+  .right-panel {
+    width: 100%;
+  }
+
+  .hw-lab-container {
+    flex-direction: column;
+  }
+
+  .music-row {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
