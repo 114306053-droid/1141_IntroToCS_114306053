@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>114306053_HW7_1A2B</title>
+</head>
+<body>
+  <h1>114306053_HW7_1A2B</h1>
+
+  <label for="guessInput">Enter 4 unique numbers</label>
+  <input id="guessInput" type="text" maxlength="4">
+  <button onclick="play()">Guess!</button>
+
+  <hr>
+
+  <div id="record">
+    <p>Game Record：</p>
+  </div>
+
+  <script>
+    let answer = generateAnswer();
+    let count = 0;
+
+    function generateAnswer() {
+      const digits = [];
+      for (let i = 0; i <= 9; i++) {
+        digits.push(i);
+      }
+
+      let result = "";
+
+      for (let i = 0; i < 4; i++) {
+        const index = Math.floor(Math.random() * digits.length);
+        result += digits[index];
+        digits.splice(index, 1);
+      }
+
+      return result;
+    }
+
+    function play() {
+      const inputField = document.getElementById("guessInput");
+      const guess = inputField.value.trim();
+      const recordDiv = document.getElementById("record");
+
+      if (!isValid(guess)) {
+        alert("輸入錯誤！請輸入 4 個不重複的數字。");
+        return;
+      }
+
+      count++;
+
+      const result = checkAB(guess, answer);
+
+      const p = document.createElement("p");
+      p.textContent = `第 ${count} 次: ${guess} → ${result}`;
+      recordDiv.appendChild(p);
+
+      inputField.value = "";
+
+      if (result === "4A0B") {
+        alert(`恭喜答對！總共猜了 ${count} 次。\n答案是：${answer}`);
+      }
+    }
+
+    function isValid(str) {
+      if (str.length !== 4) return false;
+
+      if (!/^\d{4}$/.test(str)) return false;
+
+      const set = new Set(str.split(""));
+      if (set.size !== 4) return false;
+
+      return true;
+    }
+
+    function checkAB(guess, ans) {
+      let A = 0;
+      let B = 0;
+
+      for (let i = 0; i < 4; i++) {
+        if (guess[i] === ans[i]) {
+          A++;
+        } else if (ans.includes(guess[i])) {
+          B++;
+        }
+      }
+
+      return `${A}A${B}B`;
+    }
+
+    console.log("Answer:", answer);
+  </script>
+</body>
+</html>
