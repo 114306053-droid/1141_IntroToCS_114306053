@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>114306053_Number Guessing Game</title>
+</head>
+<body>
+  <h1>114306053_Number Guessing Game</h1>
+
+  <div id="result"></div>
+
+  <script>
+    const answer = Math.floor(Math.random() * 100) + 1;
+
+    let chances = 7;
+    let low = 1;
+    let high = 100;
+
+    const resultDiv = document.getElementById("result");
+
+    while (chances > 0) {
+      const message =
+        `請輸入 ${low} 到 ${high} 之間的整數。\n` +
+        `你還有 ${chances} 次機會。`;
+
+      let input = window.prompt(message);
+
+      if (input === null) {
+        alert("遊戲結束！");
+        break;
+      }
+
+      input = input.trim();
+
+      if (input === "" || isNaN(input)) {
+        alert("請輸入有效的數字！");
+        continue;
+      }
+
+      const guess = Number(input);
+
+      if (guess < low || guess > high || guess < 1 || guess > 100) {
+        alert(`請輸入目前有效範圍 ${low} 到 ${high} 之間的整數！`);
+        continue;
+      }
+
+      chances--;
+
+      if (guess === answer) {
+        alert(`恭喜你答對了！正確答案是 ${answer}`);
+
+        const img = document.createElement("img");
+        img.src = "correct.jpg";
+        img.alt = "correct";
+        resultDiv.innerHTML = "";
+        resultDiv.appendChild(img);
+        break;
+      }
+
+      if (guess < answer) {
+        alert("太小了！");
+        if (guess >= low) low = guess + 1;
+      } else {
+        alert("太大了！");
+        if (guess <= high) high = guess - 1;
+      }
+
+      if (chances === 0) {
+        alert(`次數用完！正確答案是 ${answer}`);
+        const img = document.createElement("img");
+        img.src = "wrong.jpg";
+        img.alt = "wrong";
+        resultDiv.innerHTML = "";
+        resultDiv.appendChild(img);
+      }
+    }
+  </script>
+</body>
+</html>
