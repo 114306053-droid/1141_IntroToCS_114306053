@@ -1,0 +1,90 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #fafafa;
+  color: #111;
+}
+
+.container {
+  max-width: 920px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+h1 {
+  margin: 0 0 18px;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.controls input {
+  width: 160px;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  outline: none;
+}
+
+.controls input:focus {
+  border-color: #999;
+}
+
+.controls button {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #111;
+  color: #fff;
+  font-weight: 700;
+}
+
+.controls button:hover { opacity: 0.92; }
+
+.msg {
+  min-height: 20px;
+  margin: 6px 0 14px;
+  color: #b00020;
+  font-weight: 600;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.grade-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+}
+
+.grade-table th, .grade-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+.grade-table thead th {
+  background: #f3f3f3;
+  font-weight: 800;
+}
+
+.footer-row td {
+  background: #f9f9f9;
+  font-weight: 800;
+  border-bottom: none;
+}
