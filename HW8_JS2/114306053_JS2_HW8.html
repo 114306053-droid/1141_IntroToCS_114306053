@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JS Calculator</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="card">
+      <h1>JS Calculator</h1>
+
+      <div class="field">
+        <label for="num1">Number 1</label>
+        <input id="num1" type="number" inputmode="numeric" />
+      </div>
+
+      <div class="field">
+        <label for="num2">Number 2</label>
+        <input id="num2" type="number" inputmode="numeric" />
+      </div>
+
+      <div class="field">
+        <label for="op">Operate way?</label>
+        <select id="op">
+          <option value="+">+</option>
+          <option value="-">-</option>
+          <option value="*">*</option>
+          <option value="/">/</option>
+        </select>
+      </div>
+
+      <button id="calcBtn" type="button">Calculate</button>
+
+      <p id="error" class="error" aria-live="polite"></p>
+      <p class="result">Result = <span id="result">--</span></p>
+    </section>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
