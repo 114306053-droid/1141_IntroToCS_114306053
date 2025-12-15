@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VR Disco Club - Final Project</title>
+
+  <style>
+    /* Global Settings */
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Header Style */
+    header {
+      background-color: #4EA1D5;
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header p {
+      font-size: 1.2em;
+      margin-top: 15px;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    /* Navbar Style */
+    nav {
+      background-color: #333;
+      overflow: hidden;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    nav a.active {
+      background-color: #4EA1D5;
+      color: white;
+    }
+
+    /* Main Content Container */
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      background: white;
+      padding: 40px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #2c3e50;
+      border-bottom: 2px solid #4EA1D5;
+      padding-bottom: 10px;
+      margin-top: 40px;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      color: #2980b9;
+      margin-top: 0;
+    }
+
+    ul {
+      list-style-type: square;
+      margin-left: 20px;
+      margin-bottom: 0;
+    }
+
+    li { margin-bottom: 10px; }
+
+    /* AI Features Grid Layout */
+    .ai-features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .feature-card {
+      background: #f9fcff;
+      border: 1px solid #e1e8ed;
+      padding: 30px;
+      border-radius: 8px;
+      transition: transform 0.2s;
+      scroll-margin-top: 90px;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-left: 5px solid #4EA1D5;
+    }
+
+    /* Demo UI */
+    .demo {
+      margin-top: 18px;
+      background: white;
+      border: 1px dashed #cfd8e3;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .demo-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .btn {
+      border: 1px solid #d8dee8;
+      background: #fff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn:hover { background: #f6f9fc; }
+    .btn:active { transform: translateY(1px); }
+
+    .btn.primary {
+      background: rgba(78,161,213,0.14);
+      border-color: rgba(78,161,213,0.35);
+    }
+
+    .btn.danger {
+      background: rgba(231,76,60,0.12);
+      border-color: rgba(231,76,60,0.35);
+    }
+
+    .kv {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .kv .k { font-size: 12px; color: #5f6b7a; }
+    .kv .v { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+    .alert {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #e1e8ed;
+      background: #fff;
+      font-weight: 700;
+    }
+
+    .alert.good { border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.08); }
+    .alert.warn { border-color: rgba(234,179,8,.45); background: rgba(234,179,8,.10); }
+    .alert.bad  { border-color: rgba(239,68,68,.45); background: rgba(239,68,68,.10); }
+
+    .small { font-size: 12px; color: #5f6b7a; font-weight: 600; }
+
+    /* VR Button Style */
+    .vr-btn {
+      display: inline-block;
+      background-color: #e74c3c;
+      color: white;
+      padding: 15px 30px;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      margin-top: 20px;
+      transition: background 0.3s;
+      text-align: center;
+    }
+
+    .vr-btn:hover { background-color: #c0392b; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: white;
+      margin-top: 40px;
+    }
+
+    /* Responsive adjustments */
+    @media screen and (max-width: 768px) {
+      nav { flex-direction: column; }
+      nav a { width: 100%; text-align: left; }
+      .kv { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Virtual Reality Disco Club</h1>
+    <p>With Traditional Taiwanese Songs and Artificial Intelligence Supervisor</p>
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="#home" data-link="home">Home</a>
+    <a href="#hosting" data-link="hosting">Interactive Hosting</a>
+    <a href="#supervisor" data-link="supervisor">Intelligent Supervisor</a>
+    <a href="#emergency" data-link="emergency">Emergency Response System</a>
+    <a
+      href="https://app.sketchup.com/share/tc/asia/wFTR_ZgMHfo?source=web&stoken=3Pa6E6-wdx7Lqzl4xw3vAW2QpKEt_fcRn6mIJ1vSDYfF1NOr7E6n7FfvA5RkomIj"
+      target="_blank"
+      style="background-color:#e74c3c;"
+      rel="noopener noreferrer"
+    >View 3D Model</a>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container" id="home">
+
+    <!-- Introduction Section -->
+    <section>
+      <h2>Project Overview</h2>
+      <p>
+        Our project proposes an immersive Virtual Reality experience designed as a nostalgic disco club.
+        By integrating traditional Taiwanese songs with a specialized Artificial Intelligence Supervisor,
+        we provide a safe, engaging, and culturally resonant environment for the elderly to exercise and socialize.
+      </p>
+
+      <!-- Call to Action Button -->
+      <div style="text-align: center; margin: 30px 0;">
+        <a
+          href="https://app.sketchup.com/share/tc/asia/wFTR_ZgMHfo?source=web&stoken=3Pa6E6-wdx7Lqzl4xw3vAW2QpKEt_fcRn6mIJ1vSDYfF1NOr7E6n7FfvA5RkomIj"
+          target="_blank"
+          class="vr-btn"
+          rel="noopener noreferrer"
+        >
+          👓 Experience the 3D Model (VR View)
+        </a>
+      </div>
+
+      <h3>Why It Matters</h3>
+      <ul>
+        <li><strong>Reduces depression and loneliness:</strong> By providing a virtual social club for the elderly.</li>
+        <li><strong>Encourages light exercise (dancing):</strong> In a fun and accessible way.</li>
+        <li><strong>Revitalizes collective memories:</strong> Through nostalgic music and heritage-inspired VR settings.</li>
+      </ul>
+    </section>
+
+    <!-- AI Features Section -->
+    <section>
+      <h2>AI Functionalities</h2>
+      <p class="small">Use the navigation bar to jump to a feature. When you jump, the demo auto-runs once to show behavior.</p>
+
+      <div class="ai-features-grid">
+
+        <!-- Feature 1: Interactive Hosting -->
+        <div class="feature-card" id="hosting">
+          <h3>🎵 Interactive Hosting & Music Playback</h3>
+          <p><strong>Goal:</strong> Create an engaging and personalized musical environment.</p>
+          <hr style="border:0;border-top:1px solid #eee;margin:15px 0;">
+          <ul>
+            <li><strong>Smart Selection:</strong> Curated playlist of traditional Taiwanese hits optimized for senior-friendly exercise.</li>
+            <li><strong>Guide:</strong> An AI Host with a familiar, elder-friendly tone guides users through the experience.</li>
+            <li><strong>Dynamic Playback:</strong> Automatically adjusts music tempo based on the user’s real-time physical condition.</li>
+          </ul>
+
+          <!-- RUNNING DEMO -->
+          <div class="demo">
+            <strong>Live Demo</strong>
+            <div class="small">Click buttons or change heart rate to see Smart Selection + AI Guide + Dynamic Playback.</div>
+
+            <div class="demo-row">
+              <button class="btn primary" id="hostStartBtn">Start Hosting</button>
+              <button class="btn" id="hostNextBtn">Smart Selection: Next Song</button>
+              <button class="btn" id="tempoMinusBtn">Tempo −</button>
+              <button class="btn" id="tempoPlusBtn">Tempo +</button>
+            </div>
+
+            <div class="demo-row" style="margin-top:12px;">
+              <label class="small" for="hrSlider">Heart Rate</label>
+              <input id="hrSlider" type="range" min="70" max="140" value="85" />
+              <span class="small" id="hrLabel">85 bpm</span>
+            </div>
+
+            <div class="kv">
+              <div>
+                <div class="k">Now playing</div>
+                <div class="v" id="nowPlaying">—</div>
+              </div>
+              <div>
+                <div class="k">Tempo</div>
+                <div class="v" id="tempoOut">—</div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px;">
+              <div class="k">AI host message</div>
+              <div class="v" id="hostMsg">—</div>
+            </div>
+
+            <div style="margin-top:10px;">
+              <div class="k">System reasoning (demo)</div>
+              <div class="v" id="hostReason">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 2: Intelligent Supervisor -->
+        <div class="feature-card" id="supervisor">
+          <h3>👁️ Intelligent Supervisor</h3>
+          <p><strong>Goal:</strong> Ensure user safety through continuous monitoring.</p>
+          <hr style="border:0;border-top:1px solid #eee;margin:15px 0;">
+          <ul>
+            <li><strong>Real-time Monitoring:</strong> Tracks movement intensity and heart rate via VR sensors and wearable devices.</li>
+            <li><strong>Proactive Warnings:</strong> Issues voice alerts if movement becomes too vigorous or heart rate exceeds safe limits.</li>
+          </ul>
+
+          <div class="demo">
+            <strong>Live Demo</strong>
+            <div class="small">Simulate sensor readings to trigger warnings.</div>
+
+            <div class="demo-row">
+              <button class="btn" id="simNormalBtn">Simulate Normal</button>
+              <button class="btn" id="simVigorousBtn">Simulate Vigorous</button>
+              <button class="btn" id="simHighHrBtn">Simulate High Heart Rate</button>
+              <button class="btn" id="simResetBtn">Reset</button>
+            </div>
+
+            <div class="kv">
+              <div>
+                <div class="k">Heart rate</div>
+                <div class="v" id="supHr">—</div>
+              </div>
+              <div>
+                <div class="k">Movement intensity</div>
+                <div class="v" id="supMv">—</div>
+              </div>
+            </div>
+
+            <div class="alert good" id="supAlert">
+              Monitoring… (safe)
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 3: Emergency Response System -->
+        <div class="feature-card" id="emergency">
+          <h3>🚑 Emergency Response System</h3>
+          <p><strong>Goal:</strong> Provide immediate assistance in critical situations.</p>
+          <hr style="border:0;border-top:1px solid #eee;margin:15px 0;">
+          <ul>
+            <li><strong>Fall Detection:</strong> Identifies abnormal movement patterns or falls.</li>
+            <li><strong>Instant Notification:</strong> Automatically pauses the simulation and notifies caregivers or emergency services.</li>
+          </ul>
+
+          <div class="demo">
+            <strong>Live Demo</strong>
+            <div class="small">Simulate a fall event to auto-pause and notify.</div>
+
+            <div class="demo-row">
+              <button class="btn danger" id="fallBtn">Simulate Fall</button>
+              <button class="btn" id="resumeBtn">Resume</button>
+            </div>
+
+            <div class="kv">
+              <div>
+                <div class="k">Playback</div>
+                <div class="v" id="playbackState">—</div>
+              </div>
+              <div>
+                <div class="k">Notification</div>
+                <div class="v" id="notifyState">—</div>
+              </div>
+            </div>
+
+            <div class="alert good" id="emgAlert">No emergency detected.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Technics Section -->
+    <section id="technics">
+      <h2>Technics</h2>
+      <div style="display:flex; gap:20px; flex-wrap:wrap;">
+        <div style="flex:1;">
+          <h3>Hardware</h3>
+          <ul>
+            <li><strong>Meta Quest 3:</strong> Provides the immersive 3D environment and motion tracking.</li>
+            <li><strong>Wearable Devices:</strong> Synchronizes real-time heart rate data with the AI system.</li>
+          </ul>
+        </div>
+        <div style="flex:1;">
+          <h3>Software & AI Tools</h3>
+          <ul>
+            <li><strong>SketchUp:</strong> For creating detailed 3D nostalgic scenes.</li>
+            <li><strong>Generative AI:</strong> Tools like Dreamina and ElevenLabs for high-quality visuals and localized voice-overs.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" style="margin-top:40px; background:#f0f0f0; padding:20px; border-radius:8px;">
+      <h2>Contact</h2>
+      <p>Email: sychien@nccu.edu.tw</p>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2024 VR Disco Club Project. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    /***********************
+     * NAV: active link + hash behavior
+     ************************/
+    const navLinks = Array.from(document.querySelectorAll("nav a[data-link]"));
+
+    function setActiveNavFromHash() {
+      const hash = (location.hash || "#home").replace("#", "");
+      navLinks.forEach(a => a.classList.toggle("active", a.dataset.link === hash));
+    }
+
+    window.addEventListener("hashchange", () => {
+      setActiveNavFromHash();
+      autorunOnJump();
+    });
+
+    setActiveNavFromHash();
+
+    /***********************
+     * FEATURE 1: Hosting & Music Playback Demo
+     ************************/
+    const playlist = [
+      { title: "望春風", baseBpm: 92, mood: "nostalgic swing" },
+      { title: "雨夜花", baseBpm: 86, mood: "slow dance" },
+      { title: "四季紅", baseBpm: 104, mood: "upbeat oldies" },
+      { title: "思想起", baseBpm: 96, mood: "classic folk" }
+    ];
+
+    let hosting = false;
+    let songIndex = 0;
+    let manualTempoOffset = 0;
+    let hr = 85;
+
+    const hostStartBtn = document.getElementById("hostStartBtn");
+    const hostNextBtn  = document.getElementById("hostNextBtn");
+    const tempoMinusBtn = document.getElementById("tempoMinusBtn");
+    const tempoPlusBtn  = document.getElementById("tempoPlusBtn");
+    const hrSlider = document.getElementById("hrSlider");
+    const hrLabel  = document.getElementById("hrLabel");
+
+    const nowPlaying = document.getElementById("nowPlaying");
+    const tempoOut   = document.getElementById("tempoOut");
+    const hostMsg    = document.getElementById("hostMsg");
+    const hostReason = document.getElementById("hostReason");
+
+    function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+
+    function computeDynamicTempo(base, hrValue) {
+      // Demo rule: higher HR -> slow down, lower HR -> slightly faster (within safe range)
+      let factor = 1.0;
+      if (hrValue >= 120) factor -= 0.10;
+      else if (hrValue >= 105) factor -= 0.05;
+      else if (hrValue <= 85) factor += 0.03;
+
+      let t = Math.round(base * factor) + manualTempoOffset;
+      return clamp(t, 70, 120);
+    }
+
+    function smartSelectNext(hrValue) {
+      // Demo: if HR high -> prefer slower songs; else -> allow normal/upbeat
+      const preferSlow = hrValue >= 115;
+      const pool = preferSlow ? playlist.filter(s => s.baseBpm <= 95) : playlist;
+
+      // move to next inside pool
+      const currentTitle = playlist[songIndex].title;
+      let poolIndex = pool.findIndex(s => s.title === currentTitle);
+      poolIndex = (poolIndex + 1) % pool.length;
+
+      const chosen = pool[poolIndex];
+      const idx = playlist.findIndex(s => s.title === chosen.title);
+      return idx >= 0 ? idx : 0;
+    }
+
+    function renderHosting() {
+      if (!hosting) {
+        nowPlaying.textContent = "—";
+        tempoOut.textContent   = "—";
+        hostMsg.textContent    = "—";
+        hostReason.textContent = "—";
+        return;
+      }
+
+      const s = playlist[songIndex];
+      const dynTempo = computeDynamicTempo(s.baseBpm, hr);
+
+      nowPlaying.textContent = `${s.title} (${s.mood})`;
+      tempoOut.textContent = `${dynTempo} bpm`;
+
+      const reason =
+        (hr >= 120)
+          ? "HR is high → slow down tempo for safety."
+          : (hr >= 105)
+            ? "HR is rising → slightly reduce tempo."
+            : (hr <= 85)
+              ? "HR is low → slightly increase tempo (still senior-friendly)."
+              : "HR is stable → keep comfortable tempo.";
+
+      hostReason.textContent = `Smart Selection: ${hr >= 115 ? "prefer slower classics" : "normal mix"} | Dynamic Playback: ${reason}`;
+    }
+
+    function say(msg) { hostMsg.textContent = msg; }
+
+    function startHosting() {
+      hosting = true;
+      manualTempoOffset = 0;
+      songIndex = 0;
+      say(`Hello! Let's start gently with “${playlist[songIndex].title}”. Move comfortably.`);
+      renderHosting();
+    }
+
+    function nextSong() {
+      if (!hosting) return;
+      songIndex = smartSelectNext(hr);
+      say(`Switching song: “${playlist[songIndex].title}”. If you feel tired, take a short break.`);
+      renderHosting();
+    }
+
+    hostStartBtn.addEventListener("click", startHosting);
+    hostNextBtn.addEventListener("click", nextSong);
+
+    tempoMinusBtn.addEventListener("click", () => {
+      if (!hosting) return;
+      manualTempoOffset = clamp(manualTempoOffset - 4, -20, 20);
+      say("Slowing down a bit—comfort first.");
+      renderHosting();
+    });
+
+    tempoPlusBtn.addEventListener("click", () => {
+      if (!hosting) return;
+      manualTempoOffset = clamp(manualTempoOffset + 4, -20, 20);
+      say("Speeding up a little—only if it feels comfortable.");
+      renderHosting();
+    });
+
+    hrSlider.addEventListener("input", () => {
+      hr = Number(hrSlider.value);
+      hrLabel.textContent = `${hr} bpm`;
+      if (hosting) {
+        say("Adjusting tempo based on your real-time condition…");
+        renderHosting();
+      }
+    });
+
+    // init
+    hrLabel.textContent = `${hrSlider.value} bpm`;
+    renderHosting();
+
+    /***********************
+     * FEATURE 2: Supervisor Demo
+     ************************/
+    const supHr = document.getElementById("supHr");
+    const supMv = document.getElementById("supMv");
+    const supAlert = document.getElementById("supAlert");
+
+    let sHr = 82;
+    let sMv = "Low";
+
+    function setSupAlert(type, text) {
+      supAlert.classList.remove("good", "warn", "bad");
+      supAlert.classList.add(type);
+      supAlert.textContent = text;
+    }
+
+    function renderSupervisor() {
+      supHr.textContent = `${sHr} bpm`;
+      supMv.textContent = sMv;
+
+      if (sHr >= 120 || sMv === "High") {
+        setSupAlert("warn", "Proactive warning: Please slow down and rest if needed.");
+      } else {
+        setSupAlert("good", "Monitoring… (safe)");
+      }
+    }
+
+    document.getElementById("simNormalBtn").addEventListener("click", () => {
+      sHr = 84; sMv = "Low"; renderSupervisor();
+    });
+    document.getElementById("simVigorousBtn").addEventListener("click", () => {
+      sHr = 108; sMv = "High"; renderSupervisor();
+    });
+    document.getElementById("simHighHrBtn").addEventListener("click", () => {
+      sHr = 128; sMv = "Medium"; renderSupervisor();
+    });
+    document.getElementById("simResetBtn").addEventListener("click", () => {
+      sHr = 82; sMv = "Low"; renderSupervisor();
+    });
+
+    renderSupervisor();
+
+    /***********************
+     * FEATURE 3: Emergency Demo
+     ************************/
+    const playbackState = document.getElementById("playbackState");
+    const notifyState = document.getElementById("notifyState");
+    const emgAlert = document.getElementById("emgAlert");
+
+    let isPaused = false;
+
+    function setEmg(type, text, pb, notify) {
+      emgAlert.classList.remove("good", "warn", "bad");
+      emgAlert.classList.add(type);
+      emgAlert.textContent = text;
+      playbackState.textContent = pb;
+      notifyState.textContent = notify;
+    }
+
+    function renderEmergency() {
+      if (!isPaused) {
+        setEmg("good", "No emergency detected.", "Playing", "—");
+      } else {
+        setEmg("bad", "Emergency: fall detected. Simulation paused. Notifying caregiver/emergency services…",
+               "Paused (auto)", "Sent");
+      }
+    }
+
+    document.getElementById("fallBtn").addEventListener("click", () => {
+      isPaused = true;
+      renderEmergency();
+      // Optional: also affect hosting demo playback messaging
+      if (hosting) say("Emergency detected — pausing experience and notifying caregiver.");
+    });
+
+    document.getElementById("resumeBtn").addEventListener("click", () => {
+      isPaused = false;
+      renderEmergency();
+      if (hosting) say("All clear. Resuming at a comfortable pace.");
+    });
+
+    renderEmergency();
+
+    /***********************
+     * Auto-run when user clicks nav (so it “runs” after jumping)
+     ************************/
+    function autorunOnJump() {
+      const hash = (location.hash || "#home");
+
+      if (hash === "#hosting") {
+        // auto-start hosting once, so user sees it running
+        if (!hosting) startHosting();
+      }
+
+      if (hash === "#supervisor") {
+        // show a quick normal reading (already safe)
+        renderSupervisor();
+      }
+
+      if (hash === "#emergency") {
+        // keep safe state; user can trigger fall
+        renderEmergency();
+      }
+    }
+
+    // Run once on initial load (if opened with a hash)
+    autorunOnJump();
+  </script>
+
+</body>
+</html>
